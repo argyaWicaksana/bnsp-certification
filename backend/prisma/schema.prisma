@@ -1,0 +1,41 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../src/generated/prisma"
+  previewFeatures = ["queryCompiler", "driverAdapters"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// prisma schema
+model Category {
+  id              Int               @id @default(autoincrement())
+  name            String
+  description     String
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+  DocumentArchive DocumentArchive[]
+
+  @@map("categories")
+}
+
+model DocumentArchive {
+  id         Int      @id @default(autoincrement())
+  title      String   @db.VarChar(255)
+  letterNo   String   @map("letter_no")
+  file       String
+  category   Category @relation(fields: [categoryId], references: [id])
+  categoryId Int      @map("category_id")
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("document_archives")
+}
