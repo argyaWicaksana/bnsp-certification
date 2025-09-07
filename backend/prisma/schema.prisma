@@ -5,8 +5,8 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
-  output   = "../src/generated/prisma"
+  provider        = "prisma-client-js"
+  output          = "../src/generated/prisma"
   previewFeatures = ["queryCompiler", "driverAdapters"]
 }
 
@@ -29,7 +29,7 @@ model Category {
 
 model DocumentArchive {
   id         Int      @id @default(autoincrement())
-  title      String   @db.VarChar(255)
+  title      String
   letterNo   String   @map("letter_no")
   file       String
   category   Category @relation(fields: [categoryId], references: [id])
@@ -38,4 +38,14 @@ model DocumentArchive {
   updatedAt  DateTime @updatedAt
 
   @@map("document_archives")
+}
+
+model User {
+  id        Int      @id @default(autoincrement())
+  username  String
+  password  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("users")
 }

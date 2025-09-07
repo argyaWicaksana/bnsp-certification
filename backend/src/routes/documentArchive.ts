@@ -1,4 +1,5 @@
 import documentArchiveController from '@/controllers/documentArchiveController';
+import { verifyToken } from '@/middlewares/auth';
 import { validate } from '@/middlewares/validate';
 import { documentArchiveSchema, pdfFileSchema } from '@/validations/documentArchiveValidation';
 import { Router } from 'express';
@@ -9,10 +10,10 @@ const router = Router()
 const storage = multer.memoryStorage()
 const upload = multer({ storage })
 
-router.get('/', documentArchiveController.getAllDocumentArchives)
-router.get('/:id', documentArchiveController.getDocumentArchiveById)
-router.post('/', upload.single("file"), validate(documentArchiveSchema, pdfFileSchema, true), documentArchiveController.createDocumentArchive)
-router.put('/:id', upload.single("file"), validate(documentArchiveSchema, pdfFileSchema), documentArchiveController.updateDocumentArchive)
-router.delete('/:id', documentArchiveController.deleteDocumentArchive)
+router.get('/', verifyToken, documentArchiveController.getAllDocumentArchives)
+router.get('/:id', verifyToken, documentArchiveController.getDocumentArchiveById)
+router.post('/', verifyToken, upload.single("file"), validate(documentArchiveSchema, pdfFileSchema, true), documentArchiveController.createDocumentArchive)
+router.put('/:id', verifyToken, upload.single("file"), validate(documentArchiveSchema, pdfFileSchema), documentArchiveController.updateDocumentArchive)
+router.delete('/:id', verifyToken, documentArchiveController.deleteDocumentArchive)
 
 export default router
