@@ -7,9 +7,21 @@ const documentArchiveRepository = {
         const skip = (page - 1) * pageSize;
 
         return await prisma.documentArchive.findMany({
-            where: {
-                title: { contains: search, mode: 'insensitive' },
+            select: {
+                id: true,
+                title: true,
+                letterNo: true,
+                file: true,
+                category: {
+                    select: { name: true }
+                },
+                createdAt: true,
             },
+            ...(search ? {
+                where: {
+                    title: { contains: search, mode: 'insensitive' },
+                },
+            } : {}),
             skip,
             take: pageSize,
             orderBy: { createdAt: 'desc' },
@@ -26,7 +38,7 @@ const documentArchiveRepository = {
         });
     },
     update: async (id: number, data: DocumentArchiveData) => {
-        const {file, ...rest} = data;
+        const { file, ...rest } = data;
         return await prisma.documentArchive.update({
             where: { id },
             data: {
@@ -38,6 +50,15 @@ const documentArchiveRepository = {
     delete: async (id: number) => {
         return await prisma.documentArchive.delete({
             where: { id },
+        });
+    },
+    countAll: async (search = '') => {
+        return await prisma.documentArchive.count({
+            ...(search ? {
+                where: {
+                    title: { contains: search, mode: 'insensitive' },
+                },
+            } : {}),
         });
     }
 };

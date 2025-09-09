@@ -8,7 +8,10 @@ const UPLOAD_DIR = path.join(PUBLIC_DIR, 'uploads/document_archives');
 
 const documentArchiveService = {
     getAllDocumentArchives: async (page = 1, search = '') => {
-        return await documentArchiveRepository.findAll(page, search);
+        const data = await documentArchiveRepository.findAll(page, search);
+        const total = await documentArchiveRepository.countAll(search);
+
+        return { data, total };
     },
     getDocumentArchiveById: async (id: number) => {
         const documentArchive = await documentArchiveRepository.findById(id);

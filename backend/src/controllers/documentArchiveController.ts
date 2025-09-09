@@ -7,8 +7,8 @@ const documentArchiveController = {
         try {
             const page = parseInt(req.query.page as string) || 1;
             const search = req.query.search as string || '';
-            const categories = await documentArchiveService.getAllDocumentArchives(page, search);
-            sendSuccess(res, categories, "Documents retrieved successfully");
+            const documentArchives = await documentArchiveService.getAllDocumentArchives(page, search);
+            sendSuccess(res, documentArchives, "Documents retrieved successfully");
         } catch (error) {
             next(error);
         }
