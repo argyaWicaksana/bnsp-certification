@@ -1,16 +1,22 @@
-// import { useState } from 'react'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
-import SidebarLayout from '@/layouts/SidebarLayout'
-import './App.css'
+import { Routes, Route, Navigate } from "react-router";
+import { SidebarLayout } from '@/layouts/SidebarLayout';
+import '@/App.css';
+import { ArchivePage } from "@/pages/ArchivePage";
+import { ArchiveAddPage } from "@/pages/ArchiveAddPage";
+import { ArchiveViewPage } from "./pages/ArchiveViewPage";
 
 function App() {
   return (
-    <>
-      <SidebarLayout>
-        <p>hello worsdasdld</p>
-      </SidebarLayout>
-    </>
+    <Routes>
+      <Route element={<SidebarLayout />}>
+        <Route index element={<Navigate to="/archives" replace />} />
+        <Route path="archives">
+          <Route index element={<ArchivePage />} />
+          <Route path="create" element={<ArchiveAddPage />} />
+          <Route path=":archiveId" element={<ArchiveViewPage />} />
+        </Route>
+      </Route>
+    </Routes>
   )
 }
 
