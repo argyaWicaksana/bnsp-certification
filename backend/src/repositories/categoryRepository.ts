@@ -2,17 +2,16 @@ import { CategoryData } from "@/validations/categoryValidation";
 import prisma from "../db/prisma";
 
 const categoryRepository = {
-    findAll: async (page = 1, search = '') => {
-        const pageSize = 10;
-        const skip = (page - 1) * pageSize;
+    findAll: async (page = 0, search = '') => {
+        let pageSize = 10;
+        let skip = (page - 1) * pageSize;
 
         return await prisma.category.findMany({
             where: {
                 name: { contains: search, mode: 'insensitive' },
                 description: { contains: search, mode: 'insensitive' },
             },
-            skip,
-            take: pageSize,
+            ...(page === 0 ? {} : { skip, take: pageSize }),
             orderBy: { createdAt: 'desc' },
         });
     },
@@ -35,6 +34,15 @@ const categoryRepository = {
     delete: async (id: number) => {
         return await prisma.category.delete({
             where: { id },
+        });
+    },
+    countAll: async (search = '') => {
+        return await prisma.category.count({
+            ...(search ? {
+                where: {
+                    name: { contains: search, mode: 'insensitive' },
+                },
+            } : {}),
         });
     }
 };

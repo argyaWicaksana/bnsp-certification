@@ -13,7 +13,7 @@ const documentArchiveRepository = {
                 letterNo: true,
                 file: true,
                 category: {
-                    select: { name: true }
+                    select: { id: true, name: true }
                 },
                 createdAt: true,
             },
@@ -29,6 +29,16 @@ const documentArchiveRepository = {
     },
     findById: async (id: number) => {
         return await prisma.documentArchive.findUnique({
+            select: {
+                id: true,
+                title: true,
+                letterNo: true,
+                file: true,
+                category: {
+                    select: { id: true, name: true }
+                },
+                createdAt: true,
+            },
             where: { id },
         });
     },
@@ -37,7 +47,7 @@ const documentArchiveRepository = {
             data,
         });
     },
-    update: async (id: number, data: DocumentArchiveData) => {
+    update: async (id: number, data: Partial<DocumentArchiveData>) => {
         const { file, ...rest } = data;
         return await prisma.documentArchive.update({
             where: { id },

@@ -48,7 +48,7 @@ const documentArchiveService = {
         }
 
     },
-    updateDocumentArchive: async (id: number, data: Omit<DocumentArchiveData, "file">, file?: Express.Multer.File) => {
+    updateDocumentArchive: async (id: number, data: Partial<Omit<DocumentArchiveData, "file">>, file?: Express.Multer.File) => {
         let fullPath = '';
 
         try {

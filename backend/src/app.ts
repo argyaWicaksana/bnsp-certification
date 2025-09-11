@@ -29,6 +29,8 @@ const corsOptions: cors.CorsOptions = {
 
 app.use(cors(corsOptions))
 
+app.use(express.static(path.join(__dirname, '../public')))
+
 const routesDir = path.join(__dirname, "./routes")
 fs.readdirSync(routesDir).forEach((file) => {
     const routePath = path.join(routesDir, file);

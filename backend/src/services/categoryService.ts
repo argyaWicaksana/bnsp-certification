@@ -2,8 +2,16 @@ import categoryRepository from "@/repositories/categoryRepository";
 import { CategoryData } from "@/validations/categoryValidation";
 
 const categoryService = {
-    getAllCategories: async (page = 1, search = '') => {
-        return await categoryRepository.findAll(page, search);
+    getAllCategories: async (page = 0, search = '') => {
+        const data = await categoryRepository.findAll(page, search);
+        let total;
+        if (page === 0) {
+            total = data.length
+        } else {
+            total = await categoryRepository.countAll(search);
+        }
+
+        return { data, total };
     },
     getCategoryById: async (id: number) => {
         const category = await categoryRepository.findById(id);

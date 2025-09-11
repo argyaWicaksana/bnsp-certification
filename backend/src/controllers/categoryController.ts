@@ -8,7 +8,6 @@ const categoryController = {
             const page = parseInt(req.query.page as string) || 1;
             const search = req.query.search as string || '';
 
-            console.log("Page:", page, "Search:", search);
             const categories = await categoryService.getAllCategories(page, search);
             sendSuccess(res, categories, "Categories retrieved successfully");
         } catch (error) {
