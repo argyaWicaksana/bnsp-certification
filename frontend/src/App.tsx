@@ -10,6 +10,7 @@ import { AuthProvider } from "./context/AuthContext";
 import { CategoryPage } from "./pages/CategoryPage";
 import { CategoryAddPage } from "./pages/CategoryAddPage";
 import { CategoryEditPage } from "./pages/CategoryEditPage";
+import { AboutPage } from "./pages/AboutPage";
 
 function App() {
   return (
@@ -31,6 +32,8 @@ function App() {
             <Route path="create" element={<CategoryAddPage />} />
             <Route path=":categoryId" element={<CategoryEditPage />} />
           </Route>
+
+            <Route path="about" index element={<AboutPage />} />
         </Route>
       </Routes>
     </AuthProvider>
