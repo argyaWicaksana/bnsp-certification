@@ -30,6 +30,14 @@ const categoryService = {
     },
     deleteCategory: async (id: number) => {
         return await categoryRepository.delete(id);
+    },
+    getLastId: async () => {
+        const lastId = await categoryRepository.getLastId();
+
+        if (!lastId) {
+            return { id: -1 }
+        }
+        return lastId
     }
 }
 

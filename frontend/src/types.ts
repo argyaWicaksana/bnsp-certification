@@ -9,3 +9,9 @@ export interface Archive {
   }
   createdAt: Date
 }
+
+export interface Category {
+  id: number
+  name: string
+  description: string
+}

@@ -44,6 +44,16 @@ const categoryRepository = {
                 },
             } : {}),
         });
+    },
+    getLastId: async () => {
+        return await prisma.category.findFirst({
+            select: {
+                id: true
+            },
+            orderBy: {
+                id: 'desc',
+            },
+        });
     }
 };
 

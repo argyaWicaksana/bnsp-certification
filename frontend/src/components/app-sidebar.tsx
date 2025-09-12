@@ -20,7 +20,7 @@ const items = [
   },
   {
     title: "Kategori Surat",
-    url: "/category",
+    url: "/categories",
     icon: Settings,
   },
   {

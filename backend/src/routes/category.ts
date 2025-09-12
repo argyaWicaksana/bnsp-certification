@@ -7,6 +7,7 @@ import { verifyToken } from '@/middlewares/auth';
 const router = Router()
 
 router.get('/', verifyToken, categoryController.getAllCategories)
+router.get('/last-id', verifyToken, categoryController.getLastId)
 router.get('/:id', verifyToken, categoryController.getCategoryById)
 router.post('/', verifyToken, validate(categorySchema), categoryController.createCategory)
 router.put('/:id', verifyToken, validate(categorySchema), categoryController.updateCategory)

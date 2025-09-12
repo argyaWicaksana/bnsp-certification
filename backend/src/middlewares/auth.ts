@@ -10,7 +10,6 @@ interface AuthenticatedRequest extends Request {
 export const verifyToken = (req: AuthenticatedRequest, res: Response, next: NextFunction) => {
     const authHeader = req.headers['authorization'];
     const token = authHeader && authHeader.split(' ')[1];
-    console.log(authHeader, token)
 
     if (!token) {
         const err = new Error('Unauthorized - token not provided');

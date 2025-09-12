@@ -22,6 +22,8 @@ import { Input } from "@/components/ui/input"
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
 import api from "@/lib/api";
+import { Link } from "react-router";
+import { ChevronsLeft } from "lucide-react";
 
 const BASE_API = import.meta.env.VITE_BASE_API
 
@@ -162,7 +164,16 @@ export function ArchiveAddPage() {
                 </FormItem>
               )}
             />
-            <Button type="submit">Submit</Button>
+
+            <div className="flex gap-3">
+              <Button asChild>
+                <Link to="/archives">
+                  <ChevronsLeft />
+                  Kembali
+                </Link>
+              </Button>
+              <Button type="submit">Simpan</Button>
+            </div>
           </form>
         </Form>
       </div>
