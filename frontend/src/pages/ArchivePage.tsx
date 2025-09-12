@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Search, MoveRight } from "lucide-react"
-import axios from "axios"
 import {
   Table,
   TableBody,
@@ -27,6 +26,7 @@ import { toast } from "sonner"
 import { AppBreadcrumb } from "@/components/app-breadcrumb"
 import { Link } from "react-router";
 import { type Archive } from "../types";
+import api from "@/lib/api"
 
 const BASE_API = import.meta.env.VITE_BASE_API
 
@@ -39,12 +39,13 @@ export function ArchivePage() {
   const fetchArchives = async () => {
     try {
       const apiUrl = `${BASE_API}/api/document-archive?page=${currentPage}&search=${search}`
-      const { data } = await axios.get(apiUrl)
+      const { data } = await api.get(apiUrl)
       const totalItems = data.data.total
 
       setArchives(data.data.data)
       setTotalPages(Math.ceil(totalItems / 10))
-    } catch (error) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    } catch (error: any) {
       toast.error('Gagal memuat data')
       console.log(error)
     }
@@ -62,8 +63,8 @@ export function ArchivePage() {
   }
 
   const handleDownload = async (filePath: string) => {
-    const response = await axios.get(`${BASE_API}/${filePath}`, {
-      responseType: "blob", // penting supaya dapat binary
+    const response = await api.get(`${BASE_API}/${filePath}`, {
+      responseType: "blob",
     });
 
     const url = window.URL.createObjectURL(new Blob([response.data]));
@@ -78,7 +79,7 @@ export function ArchivePage() {
   const handleDelete = async (archiveId: number) => {
     try {
       const apiUrl = `${BASE_API}/api/document-archive/${archiveId}`
-      await axios.delete(apiUrl)
+      await api.delete(apiUrl)
 
       toast.success('Berhasil menghapus data')
 

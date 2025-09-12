@@ -9,6 +9,7 @@ import {
   SidebarHeader
 } from "@/components/ui/sidebar"
 import { Info, Settings, Star } from "lucide-react"
+import { Link, useLocation } from "react-router"
 
 // Menu items.
 const items = [
@@ -30,6 +31,8 @@ const items = [
 ]
 
 export function AppSidebar() {
+  const location = useLocation()
+  const currentPath = location.pathname
   return (
     <Sidebar>
       <SidebarHeader>
@@ -41,11 +44,11 @@ export function AppSidebar() {
             <SidebarMenu>
               {items.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <a href={item.url}>
+                  <SidebarMenuButton asChild isActive={currentPath === item.url}>
+                    <Link to={item.url}>
                       <item.icon />
                       <span>{item.title}</span>
-                    </a>
+                    </Link>
                   </SidebarMenuButton>
                 </SidebarMenuItem>
               ))}

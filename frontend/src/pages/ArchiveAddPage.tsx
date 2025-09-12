@@ -19,9 +19,9 @@ import {
   FormMessage,
 } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
-import axios from "axios";
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
+import api from "@/lib/api";
 
 const BASE_API = import.meta.env.VITE_BASE_API
 
@@ -57,7 +57,7 @@ export function ArchiveAddPage() {
       fd.append("categoryId", values.categoryId.toString());
       fd.append("title", values.title);
       fd.append("file", values.file);
-      const res = await axios.post(apiUrl, fd)
+      const res = await api.post(apiUrl, fd)
 
       console.log('resss', res)
       toast.success('Data berhasil disimpan')
@@ -70,7 +70,7 @@ export function ArchiveAddPage() {
   const fetchCategories = async () => {
     try {
       const apiUrl = `${BASE_API}/api/category`
-      const { data } = await axios.get(apiUrl)
+      const { data } = await api.get(apiUrl)
 
       setCategories(data.data.data)
     } catch (error) {

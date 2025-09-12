@@ -1,7 +1,4 @@
 import { AppBreadcrumb } from "@/components/app-breadcrumb";
-// import { useForm } from "react-hook-form";
-// import { z } from "zod"
-// import { zodResolver } from "@hookform/resolvers/zod"
 import {
   Form,
   FormControl,
@@ -9,7 +6,6 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form"
-import axios from "axios";
 import { toast } from "sonner";
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router";
@@ -21,6 +17,7 @@ import z from "zod";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { ChevronsLeft, Download } from "lucide-react";
+import api from "@/lib/api";
 
 const BASE_API = import.meta.env.VITE_BASE_API
 
@@ -47,7 +44,7 @@ export function ArchiveViewPage() {
 
       const fd = new FormData();
       fd.append("file", values.file);
-      const res = await axios.put(apiUrl, fd)
+      const res = await api.put(apiUrl, fd)
 
       console.log('res', res)
       toast.success('File berhasil diperbarui')
@@ -64,8 +61,8 @@ export function ArchiveViewPage() {
       return
     }
 
-    const response = await axios.get(`${BASE_API}/${filePath}`, {
-      responseType: "blob", // penting supaya dapat binary
+    const response = await api.get(`${BASE_API}/${filePath}`, {
+      responseType: "blob",
     });
 
     const url = window.URL.createObjectURL(new Blob([response.data]));
@@ -80,7 +77,7 @@ export function ArchiveViewPage() {
   const fetchArchive = async () => {
     try {
       const apiUrl = `${BASE_API}/api/document-archive/${archiveId}`
-      const { data: resData } = await axios.get(apiUrl)
+      const { data: resData } = await api.get(apiUrl)
 
       setArchive(resData.data)
     } catch (error) {
