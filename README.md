@@ -40,6 +40,9 @@ npx prisma migrate deploy
 // generate prisma client
 npx prisma generate
 
+// seed database
+npx prisma db seed
+
 // jalankan backend
 npm run dev
 ```
@@ -55,6 +58,9 @@ cp .env.example .env
 
 // jalankan frontend
 npm run dev
+
+// login dengan usernamenya adalah "admin" dan passwordnya adalah "password"
+// atau bisa pakai username lain di database yang tersimpan, dengan passwordnya sama, yaitu "password"
 ```
 
 ## 🖼️ Screenshot
