@@ -13,22 +13,24 @@ export function AboutPage() {
         <div>
           Aplikasi ini dibuat oleh:
           <table>
-            <tr>
-              <td>Nama</td>
-              <td>: Argya Wicaksana</td>
-            </tr>
-            <tr>
-              <td>Prodi</td>
-              <td>: D4-TI</td>
-            </tr>
-            <tr>
-              <td>NIM</td>
-              <td>: 2141720134</td>
-            </tr>
-            <tr>
-              <td>Tanggal</td>
-              <td>: 12 September 2025</td>
-            </tr>
+            <tbody>
+              <tr>
+                <td>Nama</td>
+                <td>: Argya Wicaksana</td>
+              </tr>
+              <tr>
+                <td>Prodi</td>
+                <td>: D4-TI</td>
+              </tr>
+              <tr>
+                <td>NIM</td>
+                <td>: 2141720134</td>
+              </tr>
+              <tr>
+                <td>Tanggal</td>
+                <td>: 12 September 2025</td>
+              </tr>
+            </tbody>
           </table>
         </div>
       </div>

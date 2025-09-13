@@ -153,7 +153,7 @@ export function CategoryPage() {
         onPageChange={setCurrentPage}
       />
 
-      <div>
+      <div className="mb-7">
         <Button asChild variant="default">
           <Link to='/categories/create'>
             <Plus />

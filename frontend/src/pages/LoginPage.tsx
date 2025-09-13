@@ -12,7 +12,7 @@ import { useAuth } from "@/context/AuthContext"
 import api from "@/lib/api"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { Eye, EyeClosed } from "lucide-react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useForm } from "react-hook-form"
 import { useNavigate } from "react-router"
 import { toast } from "sonner"
@@ -27,8 +27,16 @@ const formSchema = z.object({
 
 export function LoginPage() {
     const [showPassword, setShowPassword] = useState(false)
-    const { login } = useAuth()
+    const { login, getToken } = useAuth()
     const navigate = useNavigate()
+
+    useEffect(() => {
+        const token = getToken()
+        if (token) {
+            navigate('/archives')
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     const form = useForm<z.infer<typeof formSchema>>({
         resolver: zodResolver(formSchema),

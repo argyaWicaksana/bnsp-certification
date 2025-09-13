@@ -171,7 +171,7 @@ export function ArchivePage() {
         onPageChange={setCurrentPage}
       />
 
-      <div>
+      <div className="mb-7">
         <Button asChild variant="default">
           <Link to='/archives/create'>
             Arsipkan Surat

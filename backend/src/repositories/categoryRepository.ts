@@ -8,8 +8,10 @@ const categoryRepository = {
 
         return await prisma.category.findMany({
             where: {
-                name: { contains: search, mode: 'insensitive' },
-                description: { contains: search, mode: 'insensitive' },
+                OR: [
+                    { name: { contains: search, mode: 'insensitive' } },
+                    { description: { contains: search, mode: 'insensitive' } }
+                ]
             },
             ...(page === 0 ? {} : { skip, take: pageSize }),
             orderBy: { createdAt: 'desc' },
@@ -40,7 +42,10 @@ const categoryRepository = {
         return await prisma.category.count({
             ...(search ? {
                 where: {
-                    name: { contains: search, mode: 'insensitive' },
+                    OR: [
+                        { name: { contains: search, mode: 'insensitive' } },
+                        { description: { contains: search, mode: 'insensitive' } }
+                    ]
                 },
             } : {}),
         });
