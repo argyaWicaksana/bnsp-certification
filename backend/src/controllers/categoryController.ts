@@ -8,7 +8,6 @@ const categoryController = {
             const page = parseInt(req.query.page as string) || 1;
             const search = req.query.search as string || '';
 
-            console.log("Page:", page, "Search:", search);
             const categories = await categoryService.getAllCategories(page, search);
             sendSuccess(res, categories, "Categories retrieved successfully");
         } catch (error) {
@@ -26,8 +25,9 @@ const categoryController = {
     },
     createCategory: async (req: Request, res: Response, next: NextFunction) => {
         try {
-            const { name, description } = req.body;
-            const newCategory = await categoryService.createCategory({ name, description });
+            const { id, name, description } = req.body;
+            console.log(id, name, description)
+            const newCategory = await categoryService.createCategory({ ...(id ? { id } : {}), name, description });
             sendSuccess(res, newCategory, "Category created successfully", 201);
         } catch (error) {
             next(error);
@@ -51,7 +51,15 @@ const categoryController = {
         } catch (error) {
             next(error);
         }
-    }
+    },
+    getLastId: async (req: Request, res: Response, next: NextFunction) => {
+        try {
+            const lastId = await categoryService.getLastId();
+            sendSuccess(res, lastId, `last id retrieved successfully`);
+        } catch (error) {
+            next(error);
+        }
+    },
 }
 
 export default categoryController;

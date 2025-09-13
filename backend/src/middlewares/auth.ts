@@ -21,8 +21,8 @@ export const verifyToken = (req: AuthenticatedRequest, res: Response, next: Next
         try {
 
             if (err) {
-                const error = new Error('Forbidden - token invalid');
-                (error as any).status = 403;
+                const error = new Error('Unauthorized - token invalid');
+                (error as any).status = 401;
                 throw error;
             }
 

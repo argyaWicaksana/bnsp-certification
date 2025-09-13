@@ -9,6 +9,8 @@ export const documentArchiveSchema = z.object({
     categoryId: z.coerce.number().int().positive("Category ID must be a positive integer"),
 });
 
+export const documentArchiveSchemaPartial = documentArchiveSchema.partial();
+
 export const pdfFileSchema = z.object({
     /** Multer fields */
     fieldname: z.string().optional(),
@@ -37,22 +39,7 @@ export const pdfFileSchema = z.object({
         message: "Max file size is 5 MB.",
       });
     }
-  });;
-
-// export const fileFilterPdf = (_: any, file: Express.Multer.File, cb: FileFilterCallback) => {
-//     const byMime = PDF_MIMES.includes(file.mimetype);
-//     const byExt = file.originalname.toLowerCase().endsWith(".pdf");
-
-//     if (byMime || byExt) {
-//       cb(null, true);
-//     } else {
-//       cb(new Error("Only PDF files are allowed"));
-//     }
-
-//     if (file.size > MAX_BYTES) {
-//         cb(new Error("Max file size is 5 MB."));
-//     }
-// }
+  });
 
 const documentArchiveSchemaWithFile = documentArchiveSchema.extend({ file: z.string() });
 export type DocumentArchiveData = z.infer<typeof documentArchiveSchemaWithFile>;
