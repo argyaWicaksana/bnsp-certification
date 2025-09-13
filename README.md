@@ -30,15 +30,15 @@ git clone https://github.com/argyaWicaksana/bnsp-certification.git
 cd backend
 npm install
 
+// setup file .env
+cp .env.example .env
+// sesuaikan username dan password db di komputer
+
 // run migrations
 npx prisma migrate deploy
 
 // generate prisma client
 npx prisma generate
-
-// setup file .env
-cp .env.example .env
-// sesuaikan username dan password db di komputer
 
 // jalankan backend
 npm run dev
